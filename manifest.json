@@ -1,9 +1,12 @@
 {
   "name": "TAU Calendar Extension",
-  "version": "1.01",
+  "version": "1.02",
   "description": "Download an .ics calendar file from your personal info in TAU",
   "manifest_version": 2,
-  "icons": {},
+  "icons": {
+   "16": "icons/icon16.png",
+   "48": "icons/icon48.png",
+  "128": "icons/icon128.png"},
   "web_accessible_resources": ["js/cal.js"],
       "permissions": ["https://www.ims.tau.ac.il/*"],
    "content_scripts": [
