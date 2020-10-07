@@ -101,7 +101,6 @@ function createIcalEvent(lesson){
         firstday = firstDay(semester_b_start, lesson.day);
     }
 
-
     let spl = lesson.hours.replace('^', '').trim().split('-');
     let start = firstday + "T" + spl[0].replace(':', "") + '00';
     let end = firstday + "T" + spl[1].replace(':', "") + '00';
