@@ -61,8 +61,6 @@ function get_classes(){
 
 }
 
-
-
 // get the first date of a day after certain date
 function firstDay(date, day_str) {
 	day_str = day_str.trim().replace('#','').replace('&','').replace('!','')
