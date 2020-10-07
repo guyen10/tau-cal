@@ -1,12 +1,13 @@
+
+// convert html table to array of arrays
 function tableToArray(table) {
     let result = [];
     let rows = table.rows;
     let cells, t;
-    const regex = /href="(.+?)"/gm;
 
-  // Iterate over rows
     let str;
     let i = 0, iLen = rows.length;
+        // Iterate over rows
     for (; i < iLen; i++) {
         cells = rows[i].cells;
         t = [];
@@ -15,10 +16,14 @@ function tableToArray(table) {
         for (let j = 0, jLen = cells.length - 1; j < jLen; j++) {
             t.push(cells[j].textContent);
         }
+
+        //  handle last link for syllabus
         str = cells[cells.length - 1].innerHTML;
         let res = str.match(/href="(.+?)"/);
         if (res != null) {
-            t.push("https://www.ims.tau.ac.il" + res[1])
+            // fix link for syllabus
+            let uri = res[1].replace(/&amp;req=[^&]+/g,'')
+            t.push("https://www.ims.tau.ac.il" + uri)
             result.push(t);
         }
 
@@ -27,7 +32,7 @@ function tableToArray(table) {
   return result;
 }
 
-
+// returns list of classes objects
 function get_classes(){
 	let arr = tableToArray($("table[bordercolor='skyblue']")[0]);
 	let classes = [];
@@ -57,26 +62,8 @@ function get_classes(){
 }
 
 
-function download_calendar(){
-    let calendar="BEGIN:VCALENDAR\n";
-    calendar+="VERSION:2.0\n";
-    calendar+="BEGIN:VTIMEZONE\n";
-	calendar+="TZID:Asia/Jerusalem\n"
-    calendar+="END:VTIMEZONE\n";
-    let classes = get_classes();
-    for (let i=0; i<classes.length; i++){
-        const lesson = classes[i];
-        calendar+=createIcalEvent(lesson);
-    }
 
-    calendar+="END:VCALENDAR\n";
-    download_file("my_calendar.ics", calendar);
-}
-
-
-
-
-
+// get the first date of a day after certain date
 function firstDay(date, day_str) {
 	day_str = day_str.trim().replace('#','').replace('&','').replace('!','')
 	d = {"א":0,"ב":1,"ג":2,"ד":3,"ה":4,"ו":5};
@@ -91,7 +78,7 @@ function firstDay(date, day_str) {
 }
 
 
-
+// create recurrent event per lesson
 function createIcalEvent(lesson){
     const semester_a_start = "2020-10-18T00:00:00";
     const semester_a_ends = "20210117T235959Z";
@@ -102,11 +89,10 @@ function createIcalEvent(lesson){
 		return "";
 	}
     let freq = "FREQ=WEEKLY;";
-	// if lesson.day.includes("#"){
-
-	// }
     let until;
     let firstday;
+
+    //get the first date of a day (Sunday,Monday etc..) after the semester starts
     if (lesson.semester.includes("א")) {
         until = semester_a_ends
         firstday = firstDay(semester_a_start, lesson.day);
@@ -114,6 +100,8 @@ function createIcalEvent(lesson){
         until = semester_b_ends;
         firstday = firstDay(semester_b_start, lesson.day);
     }
+
+
     let spl = lesson.hours.replace('^', '').trim().split('-');
     let start = firstday + "T" + spl[0].replace(':', "") + '00';
     let end = firstday + "T" + spl[1].replace(':', "") + '00';
@@ -128,6 +116,7 @@ function createIcalEvent(lesson){
     return result;
 }
 
+// convert lesson type to more readable string
 function get_type(old_type){
 	old_type = old_type.trim();
     let d = {'שעור': "שיעור", "תרג": "תרגול", "פרקט": "פרויקט"};
@@ -137,7 +126,7 @@ function get_type(old_type){
 	return old_type;
 }
 
-
+// downloads a text file
 function download_file(name, contents, mime_type) {
     mime_type = mime_type || "text/plain";
 
@@ -158,3 +147,21 @@ function download_file(name, contents, mime_type) {
     dlink.remove();
 
 }
+
+// downloads the calendar file
+function download_calendar(){
+    let calendar="BEGIN:VCALENDAR\n";
+    calendar+="VERSION:2.0\n";
+    calendar+="BEGIN:VTIMEZONE\n";
+	calendar+="TZID:Asia/Jerusalem\n"
+    calendar+="END:VTIMEZONE\n";
+    let classes = get_classes();
+    for (let i=0; i<classes.length; i++){
+        const lesson = classes[i];
+        calendar+=createIcalEvent(lesson);
+    }
+
+    calendar+="END:VCALENDAR\n";
+    download_file("my_calendar.ics", calendar);
+}
+
