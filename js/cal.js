@@ -39,7 +39,7 @@ function get_classes(){
     let lesson;
     for (let i = 0; i < arr.length; i++) {
         let item = arr[i]
-        if (item[3].trim() !== "משאבי הספריה") {
+        if (item[8].trim() !== "") {
             let lesson = new Object();
             lesson.course_num = item[1];
             lesson.group = item[2];
@@ -63,7 +63,7 @@ function get_classes(){
 
 // get the first date of a day after certain date
 function firstDay(date, day_str) {
-	day_str = day_str.trim().replace('#','').replace('&','').replace('!','')
+	day_str = day_str.trim().replace(/[&%#*]/g,'');
 	d = {"א":0,"ב":1,"ג":2,"ד":3,"ה":4,"ו":5};
     let tempDate = new Date(date);
 
@@ -72,7 +72,7 @@ function firstDay(date, day_str) {
     tempDate.setDate(tempDate.getDate() + toNextday);
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
 	var localISOTime = (new Date(tempDate - tzoffset))
-    return localISOTime.toISOString().split('T')[0].replaceAll('-','').trim();
+    return localISOTime.toISOString().split('T')[0].replace(/-/g,'').trim();
 }
 
 
@@ -99,7 +99,7 @@ function createIcalEvent(lesson){
         firstday = firstDay(semester_b_start, lesson.day);
     }
 
-    let spl = lesson.hours.replace('^', '').trim().split('-');
+    let spl = lesson.hours.replace(/[^*]/g, '').trim().split('-');
     let start = firstday + "T" + spl[0].replace(':', "") + '00';
     let end = firstday + "T" + spl[1].replace(':', "") + '00';
     let result = "BEGIN:VEVENT\n";
@@ -108,7 +108,7 @@ function createIcalEvent(lesson){
   	result+="RRULE:"+freq+"UNTIL="+until+"\n";
     result+="SUMMARY:"+lesson.name+"- "+get_type(lesson.type)+"\n";
     result+="LOCATION:"+lesson.location+"\n";
-    result+="DESCRIPTION: מספר קורס: "+lesson.course_num+"\\nמרצה: "+lesson.lectuer+"\\nסילבוס: "+lesson.syl_link+"\n";
+    result+="DESCRIPTION: מספר קורס: "+lesson.course_num+"\\nקבוצה: "+lesson.group+"\\nמרצה: "+lesson.lectuer+"\\nסילבוס: "+lesson.syl_link+"\n";
     result+="END:VEVENT\n";
     return result;
 }
