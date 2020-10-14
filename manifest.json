@@ -1,6 +1,6 @@
 {
   "name": "TAU Calendar Extension",
-  "version": "1.04",
+  "version": "1.05",
   "description": "Download an .ics calendar file from your personal info in TAU",
   "manifest_version": 2,
   "icons": {
