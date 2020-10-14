@@ -63,7 +63,7 @@ function get_classes(){
 
 // get the first date of a day after certain date
 function firstDay(date, day_str) {
-	day_str = day_str.trim().replace(/[&%#*]/g,'');
+	day_str = day_str.trim().replace(/[&%#*!]/g,'');
 	d = {"א":0,"ב":1,"ג":2,"ד":3,"ה":4,"ו":5};
     let tempDate = new Date(date);
 
@@ -99,7 +99,7 @@ function createIcalEvent(lesson){
         firstday = firstDay(semester_b_start, lesson.day);
     }
 
-    let spl = lesson.hours.replace(/[^*]/g, '').trim().split('-');
+    let spl = lesson.hours.replace('^', '').trim().split('-');
     let start = firstday + "T" + spl[0].replace(':', "") + '00';
     let end = firstday + "T" + spl[1].replace(':', "") + '00';
     let result = "BEGIN:VEVENT\n";
