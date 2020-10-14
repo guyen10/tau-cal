@@ -161,4 +161,3 @@ function download_calendar(){
     calendar+="END:VCALENDAR\n";
     download_file("my_calendar.ics", calendar);
 }
-
