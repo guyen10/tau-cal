@@ -78,10 +78,10 @@ function firstDay(date, day_str) {
 
 // create recurrent event per lesson
 function createIcalEvent(lesson){
-    const semester_a_start = "2020-10-18T05:00:00";
-    const semester_a_ends = "20210117T235959Z";
-    const semester_b_start = "2021-03-03T05:00:00";
-    const semester_b_ends = "20210618T235959Z";
+    const semester_a_start = "2021-10-10T05:00:00";
+    const semester_a_ends = "20210109T235959Z";
+    const semester_b_start = "2021-02-20T05:00:00";
+    const semester_b_ends = "20210610T235959Z";
 
     if(!lesson.hours.includes("-")){
 		return "";
