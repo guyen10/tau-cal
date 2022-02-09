@@ -21,7 +21,7 @@ function tableToArray(table) {
         let res = str.match(/href="(.+?)"/);
         if (res != null) {
             // fix link for syllabus
-            let uri = res[1].replace(/&amp;req=[^&]+/g, '')
+            let uri = res[1].replace(/&amp;req=[^&]+/g, '').replace(/&amp;/g, '&');
             t.push("https://www.ims.tau.ac.il" + uri)
             result.push(t);
         }
