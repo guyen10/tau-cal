@@ -84,9 +84,15 @@ year_to_dates = {
     },
     '2021': {
         "semester_a_start": "2021-10-10T05:00:00",
-        "semester_a_ends": "20210109T235959Z",
+        "semester_a_ends": "20220109T235959Z",
         "semester_b_start": "2022-02-20T05:00:00",
         "semester_b_ends": "20220610T235959Z"
+    },
+    '2022': {
+        "semester_a_start": "2022-10-23T05:00:00",
+        "semester_a_ends": "20230122T235959Z",
+        "semester_b_start": "2023-03-12T05:00:00",
+        "semester_b_ends": "20230630T235959Z"
     }
 }
 
