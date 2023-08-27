@@ -74,7 +74,7 @@ function firstDay(date, day_str) {
     return localISOTime.toISOString().split('T')[0].replace(/-/g, '').trim();
 }
 
-// mapping of years to the semeters dates
+// mapping of years to the semesters dates
 year_to_dates = {
     '2020': {
         "semester_a_start": "2020-10-18T05:00:00",
@@ -93,6 +93,12 @@ year_to_dates = {
         "semester_a_ends": "20230122T235959Z",
         "semester_b_start": "2023-03-12T05:00:00",
         "semester_b_ends": "20230630T235959Z"
+    }
+    '2023': {
+        "semester_a_start": "2023-10-15T05:00:00",
+        "semester_a_ends": "20240115T235959Z",
+        "semester_b_start": "2024-03-04T05:00:00",
+        "semester_b_ends": "20240623T235959Z"
     }
 }
 
