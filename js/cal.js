@@ -93,7 +93,7 @@ year_to_dates = {
         "semester_a_ends": "20230122T235959Z",
         "semester_b_start": "2023-03-12T05:00:00",
         "semester_b_ends": "20230630T235959Z"
-    }
+    },
     '2023': {
         "semester_a_start": "2023-10-15T05:00:00",
         "semester_a_ends": "20240115T235959Z",
